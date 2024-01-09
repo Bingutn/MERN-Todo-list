@@ -1,4 +1,4 @@
-9/Jan/2024 - After clone this repo into another pc. There have a problem to connect server. I found that it can't access to .env file. I will find solution and update soon. 
+9/Jan/2024 - After clone this repo into another pc. There have a problem to connect server. I found that it can't access to .env file. I will find solution and update soon. But website which deployed on hosting, is okay.
 
 ## SERVER SIDE
 
