@@ -30,13 +30,26 @@ app.get("/", (req, res) => {
 
 app.use("/todos", todosRoute);
 
+// mongoose
+//   .connect(process.env.MONGO_URI)
+//   .then(() => {
+//     console.log("Connected to database");
+
+//     app.listen(process.env.PORT, () => {
+//       console.log(`Server running on port ${process.env.PORT}`);
+//     });
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
+
 mongoose
-  .connect(process.env.MONGO_URI)
+  .connect(process.env.VITE_MONGO_URI)
   .then(() => {
     console.log("Connected to database");
 
-    app.listen(process.env.PORT, () => {
-      console.log(`Server running on port ${process.env.PORT}`);
+    app.listen(process.env.VITE_PORT, () => {
+      console.log(`Server running on port ${process.env.VITE_PORT}`);
     });
   })
   .catch((error) => {
