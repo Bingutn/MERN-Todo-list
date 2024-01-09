@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useSnackbar } from "notistack";
 import { Button } from "@mui/material";
+import { API } from "../utils/api";
 
 export default function AddTodo() {
   const [title, setTitle] = useState("");
@@ -27,7 +28,7 @@ export default function AddTodo() {
 
     setLoading(true);
     axios
-      .post("http://localhost:8000/todos", newTodo)
+      .post(`${API}/todos`, newTodo)
       .then(() => {
         setLoading(false);
         setTitle("");

@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Spinner from "../components/Spinner";
 import { useSnackbar } from "notistack";
 import { Button } from "@mui/material";
+import { API } from "../utils/api";
 
 export default function UpdateTodo() {
   const [title, setTitle] = useState("");
@@ -17,7 +18,7 @@ export default function UpdateTodo() {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://localhost:8000/todos/${id}`)
+      .get(`${API}/todos/${id}`)
       .then((res) => {
         setTitle(res.data.title);
         setLoading(false);
@@ -35,7 +36,7 @@ export default function UpdateTodo() {
     };
     setLoading(true);
     axios
-      .patch(`http://localhost:8000/todos/${id}`, todo)
+      .patch(`${API}/todos/${id}`, todo)
       .then(() => {
         setLoading(false);
         enqueueSnackbar(`${todo.title} was updated successfully!`, {

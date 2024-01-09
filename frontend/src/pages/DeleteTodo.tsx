@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Spinner from "../components/Spinner";
 import { useSnackbar } from "notistack";
 import { Button } from "@mui/material";
+import { API } from "../utils/api";
 
 export default function DeleteTodo() {
   const [loading, setLoading] = useState(false);
@@ -16,7 +17,7 @@ export default function DeleteTodo() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/todos/${id}`)
+      .get(`${API}/todos/${id}`)
       .then((response) => {
         setTodoTitle(response.data.title);
       })
@@ -28,7 +29,7 @@ export default function DeleteTodo() {
   function handleDeleteTodo() {
     setLoading(true);
     axios
-      .delete(`http://localhost:8000/todos/${id}`)
+      .delete(`${API}/todos/${id}`)
       .then(() => {
         setLoading(false);
         enqueueSnackbar("Deleted successfully!", { variant: "success" });

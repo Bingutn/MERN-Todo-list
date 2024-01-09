@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import Spinner from "../components/Spinner";
 
 import { useSnackbar } from "notistack";
+import { API } from "../utils/api";
 
 interface Todo {
   _id: string;
@@ -23,7 +24,7 @@ export const Home = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("http://localhost:8000/todos")
+      .get(`${API}/todos`)
       .then((res) => {
         setTodos(res.data.data);
         setLoading(false);
@@ -40,7 +41,7 @@ export const Home = () => {
   function fetchTodos() {
     setLoading(true);
     axios
-      .get("http://localhost:8000/todos")
+      .get(`${API}/todos`)
       .then((res) => {
         setTodos(res.data.data);
         setLoading(false);

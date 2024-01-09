@@ -5,6 +5,8 @@ import axios from "axios";
 import DeleteAllButton from "./DeleteAllButton";
 
 import { useSnackbar } from "notistack";
+import { API } from "../utils/api";
+import { useState } from "react";
 
 interface Todo {
   _id: string;
@@ -18,12 +20,15 @@ interface TodoCardProps {
 }
 
 export default function TodoCard({ todos, fetchTodos }: TodoCardProps) {
+  const [loading, setLoading] = useState(false);
+
   const { enqueueSnackbar } = useSnackbar();
 
   function toggleCompleteTodo(id: string, isCompleted: boolean) {
     const updatedStatus = !isCompleted;
+    setLoading(true);
     axios
-      .put(`http://localhost:8000/todos/${id}`, {
+      .put(`${API}/todos/${id}`, {
         isCompleted: updatedStatus,
       })
       .then(() => {
@@ -35,12 +40,15 @@ export default function TodoCard({ todos, fetchTodos }: TodoCardProps) {
       .catch((err) => {
         enqueueSnackbar("Error updating todo status", { variant: "error" });
         console.log(err);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }
 
   function handleDeleteAll() {
     axios
-      .delete(`http://localhost:8000/todos/`)
+      .delete(`${API}/todos/`)
       .then(() => {
         enqueueSnackbar("All todos was deleted successfully!", {
           variant: "success",
@@ -53,7 +61,10 @@ export default function TodoCard({ todos, fetchTodos }: TodoCardProps) {
       });
   }
   return (
-    <div className="px-4 py-2 m-4 relative text-white grid place-items-center">
+    <div
+      className="px-4 py-2 m-4 relative text-white grid place-items-center"
+      style={{ cursor: loading ? "wait" : "default" }}
+    >
       <div className="grid grid-cols-4 gap-x-10 gap-y-7 h-min w-10/12 xl:grid-cols-3 xl:w-full lg:grid-cols-2 sm:grid-cols-1">
         {todos.map((todo, index) => (
           <div
@@ -69,7 +80,7 @@ export default function TodoCard({ todos, fetchTodos }: TodoCardProps) {
               <input
                 type="checkbox"
                 name="checked"
-                className="w-4"
+                className="w-4 cursor-pointer"
                 checked={todo.isCompleted}
                 onChange={() => toggleCompleteTodo(todo._id, todo.isCompleted)}
               />
