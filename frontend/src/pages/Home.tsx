@@ -6,6 +6,8 @@ import { MdOutlineAddBox } from "react-icons/md";
 import { Link } from "react-router-dom";
 import Spinner from "../components/Spinner";
 
+import { useSnackbar } from "notistack";
+
 interface Todo {
   _id: string;
   title: string;
@@ -15,6 +17,8 @@ interface Todo {
 export const Home = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [loading, setLoading] = useState(false);
+
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     setLoading(true);
@@ -26,10 +30,12 @@ export const Home = () => {
       })
       .catch((err) => {
         console.log(err);
-        alert("There have a problem to connect the server");
+        enqueueSnackbar("There have a problem to connect the server", {
+          variant: "error",
+        });
         setLoading(false);
       });
-  }, []);
+  }, [enqueueSnackbar]);
 
   function fetchTodos() {
     setLoading(true);
