@@ -1,3 +1,5 @@
+9/Jan/2024 - After clone this repo into another pc. There have a problem to connect server. I found that it can't access to .env file. I will find solution and update soon. 
+
 ## SERVER SIDE
 
 open #1 terminal
